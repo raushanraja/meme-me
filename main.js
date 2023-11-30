@@ -1,19 +1,17 @@
-import { getThemeToggle } from './src/theme.js';
-import { getVideo, drawVideo } from './src/camera.js';
-import { drawText } from './src/text.js';
-import { Modal } from './src/modal.js';
-import Maskify from './src/face_rec.js';
-import * as faceapi from 'face-api.js';
+import { getThemeToggle } from "./src/theme.js";
+import { getVideo, drawVideo } from "./src/camera.js";
+import { drawText } from "./src/text.js";
+import { Modal } from "./src/modal.js";
 
-const memeCanvas = document.getElementById('meme');
+const memeCanvas = document.getElementById("meme");
 
 // Create unattached canvas elements
 // to serve as "layers" of the meme
-const selfieLayer = document.createElement('canvas');
-const textLayer = document.createElement('canvas');
+const selfieLayer = document.createElement("canvas");
+const textLayer = document.createElement("canvas");
 for (let canvas of [selfieLayer, textLayer]) {
-    canvas.width = memeCanvas.width;
-    canvas.height = memeCanvas.height;
+  canvas.width = memeCanvas.width;
+  canvas.height = memeCanvas.height;
 }
 
 // When either layer has changed, we'll
@@ -36,54 +34,54 @@ function redrawMeme() {
 }
 
 function setupSettings() {
-    const settings = document.getElementById('settings');
+    const settings = document.getElementById("settings");
     getThemeToggle();
-
+  
     const darkModal = new Modal(
-        'Settings',
-        settings,
-        settings.querySelector('.modal-content')
+      "Settings",
+      settings,
+      settings.querySelector(".modal-content")
     );
     darkModal.render();
-}
-
-function setupAddText() {
-    const textInputs = document.getElementById('add-text');
-    const saveTextBtn = document.getElementById('text-save');
-
-    saveTextBtn.addEventListener('click', () => {
-        drawText(textLayer);
-        redrawMeme();
+  }
+  
+  function setupAddText() {
+    const textInputs = document.getElementById("add-text");
+    const saveTextBtn = document.getElementById("text-save");
+  
+    saveTextBtn.addEventListener("click", () => {
+      drawText(textLayer);
+      redrawMeme();
     });
-
+  
     const textModal = new Modal(
-        'Add some text',
-        textInputs,
-        textInputs.querySelector('.modal-content')
+      "Add some text",
+      textInputs,
+      textInputs.querySelector(".modal-content")
     );
     textModal.render();
-}
-
-async function setupTakeSelfie() {
-    const selfie = document.getElementById('take-selfie');
-    const savePhotoBtn = document.getElementById('save-photo');
-
+  }
+  
+  async function setupTakeSelfie() {
+    const selfie = document.getElementById("take-selfie");
+    const savePhotoBtn = document.getElementById("save-photo");
+  
     const selfieModal = new Modal(
-        'Take a selfie',
-        selfie,
-        selfie.querySelector('.modal-content')
+      "Take a selfie",
+      selfie,
+      selfie.querySelector(".modal-content")
     );
     selfieModal.render();
-
-    const previewCanvas = document.getElementById('preview');
-
+  
+    const previewCanvas = document.getElementById("preview");
+  
     const video = await getVideo(previewCanvas);
-
-    savePhotoBtn.addEventListener('click', () => {
-        drawVideo(video, selfieLayer);
-        redrawMeme();
+  
+    savePhotoBtn.addEventListener("click", () => {
+      drawVideo(video, selfieLayer);
+      redrawMeme();
     });
-}
+  }
 
 function DrawFaceBoundary() {
     return new Promise((resolve, reject) => {
