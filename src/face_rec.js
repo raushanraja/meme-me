@@ -10,12 +10,10 @@ export default async function masify() {
         faceapi.loadTinyFaceDetectorModel('/meme-me/models'),
         faceapi.loadFaceLandmarkTinyModel('/meme-me/models'),
  
-    ]).then((err) => {
+    ]).then(() => {
         console.log('Loaded');
     })
         .catch((err) => {
         console.error(err);
     });
-
-    const items = document.querySelectorAll('.masify');
 }

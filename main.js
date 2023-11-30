@@ -2,6 +2,8 @@ import { getThemeToggle } from "./src/theme.js";
 import { getVideo, drawVideo } from "./src/camera.js";
 import { drawText } from "./src/text.js";
 import { Modal } from "./src/modal.js";
+import * as faceapi from 'face-api.js';
+import LoadFaceAPIModels from './src/face_rec.js'
 
 const memeCanvas = document.getElementById("meme");
 
@@ -101,7 +103,7 @@ function DrawFaceBoundary() {
 
 // IIFE in case we don't have top-level await
 (async function run() {
-    await Maskify();
+    await LoadFaceAPIModels();
     setupSettings();
     setupAddText();
     await setupTakeSelfie();
